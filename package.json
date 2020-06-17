@@ -1,18 +1,18 @@
 {
-  "name": "@jupyterlab-examples/launcher",
+  "name": "@omazapa/jupyterlab-cmssw",
   "version": "0.1.0",
-  "description": "A minimal JupyterLab example using the launcher.",
+  "description": "LupyterLab SWAN extension.",
   "keywords": [
     "jupyter",
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "homepage": "https://github.com/jupyterlab/extension-examples",
+  "homepage": "https://github.com/omazapa/jupyterlab-cmssw",
   "bugs": {
-    "url": "https://github.com/jupyterlab/extension-examples/issues"
+    "url": "https://github.com/omazapa/jupyterlab-cmssw/issues"
   },
   "license": "BSD-3-Clause",
-  "author": "my_name",
+  "author": "Omar Zapata",
   "files": [
     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
     "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}"
@@ -22,7 +22,7 @@
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jupyterlab/extension-examples.git"
+    "url": "https://github.com/omazapa/jupyterlab-cmssw.git"
   },
   "scripts": {
     "build": "tsc",

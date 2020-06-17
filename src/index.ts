@@ -5,6 +5,8 @@ import {
 
 import { ICommandPalette } from '@jupyterlab/apputils';
 
+import { InputDialog } from '@jupyterlab/apputils';
+
 import { IFileBrowserFactory } from '@jupyterlab/filebrowser';
 
 import { ILauncher } from '@jupyterlab/launcher';
@@ -13,10 +15,11 @@ import { IMainMenu } from '@jupyterlab/mainmenu';
 
 import { LabIcon } from '@jupyterlab/ui-components';
 
+
 import pythonIconStr from '../style/Python-logo-notext.svg';
 
-const FACTORY = 'Editor';
-const PALETTE_CATEGORY = 'Extension Examples';
+// const FACTORY = 'Editor';
+const PALETTE_CATEGORY = 'JupyterLab SWAN';
 
 namespace CommandIDs {
   export const createNew = 'jlab-examples:create-new-python-file';
@@ -34,6 +37,9 @@ const extension: JupyterFrontEndPlugin<void> = {
     menu: IMainMenu | null,
     palette: ICommandPalette | null
   ) => {
+    const cmssw_options = ['CMSSW_12.0','CMSSW_11.0', 'CMSSW_10.1'];
+    let cmssw_option = cmssw_options[0];
+
     const { commands } = app;
     const command = CommandIDs.createNew;
     const icon = new LabIcon({
@@ -42,26 +48,17 @@ const extension: JupyterFrontEndPlugin<void> = {
     });
 
     commands.addCommand(command, {
-      label: args => (args['isPalette'] ? 'New Python File' : 'Python File'),
-      caption: 'Create a new Python file',
+      label: args => (args['isPalette'] ? 'New CMSSW Env' : 'CMSSW Env'),
+      caption: 'Create a new CMSSW Env',
       icon: args => (args['isPalette'] ? null : icon),
       execute: async args => {
-        // Get the directory in which the Python file must be created;
-        // otherwise take the current filebrowser directory
-        const cwd = args['cwd'] || browserFactory.defaultBrowser.model.path;
-
-        // Create a new untitled python file
-        const model = await commands.execute('docmanager:new-untitled', {
-          path: cwd,
-          type: 'file',
-          ext: 'py'
-        });
-
-        // Open the newly created file with the 'Editor'
-        return commands.execute('docmanager:open', {
-          path: model.path,
-          factory: FACTORY
-        });
+        return InputDialog.getItem({
+          title: 'Pick an option to persist by the State Example extension',
+          items: cmssw_options,
+          current: Math.max(0, cmssw_options.indexOf(cmssw_option))
+        }).then(value => {
+          console.log('selected item ' + value.value);
+        });;
       }
     });
 
@@ -69,7 +66,7 @@ const extension: JupyterFrontEndPlugin<void> = {
     if (launcher) {
       launcher.add({
         command,
-        category: 'Extension Examples',
+        category: 'JupyterLab SWAN ',
         rank: 1
       });
     }
