@@ -15,12 +15,9 @@ import { IMainMenu } from '@jupyterlab/mainmenu';
 
 import { LabIcon } from '@jupyterlab/ui-components';
 
-// import { DisposableSet } from '@lumino/disposable';
-
+// import { URLExt } from '@jupyterlab/coreutils';
 
 import cmsIconStr from '../style/CMS_logo.svg';
-
-// import swanIconStr from '../style/SWAN_logo.svg';
 
 // const FACTORY = 'Editor';
 const PALETTE_CATEGORY = 'SWAN';
@@ -55,15 +52,11 @@ const extension: JupyterFrontEndPlugin<void> = {
     const { commands } = app;
     const command = CommandIDs.createNew;
     const cmsicon = new LabIcon({
-      name: 'launcher:python-icon',
+      name: 'launcher:cmssw-icon',
       svgstr: cmsIconStr
     });
 
-    /* const swanicon = new LabIcon({
-      name: 'launcher:python-icon',
-      svgstr: swanIconStr
-    });
- */
+
     commands.addCommand(command, {
       label: args => (args['isPalette'] ? 'New CMSSW Env' : 'CMSSW Env'),
       caption: 'Create a new CMSSW Env',
@@ -106,9 +99,10 @@ const extension: JupyterFrontEndPlugin<void> = {
     if (launcher) {
       void manager.ready.then(() => {
         launcher.add({
-          command,
+          command: command,
           category: PALETTE_CATEGORY,
-          rank: 1
+          rank: 1,
+          kernelIconUrl: ""
         });
       })
     }
